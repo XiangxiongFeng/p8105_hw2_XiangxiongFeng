@@ -11,7 +11,7 @@ output: github_document
 ```{r}
 library(tidyverse)
 ```
-## clean the data in pols-month.csv
+# a. clean the data in pols-month.csv
 
 ```{r}
 polsmonth_df = 
@@ -45,7 +45,7 @@ polsmonth_df =
   
 ```
 
-## clean data in snp.csv
+# b. clean data in snp.csv
 
 ```{r}
 library(lubridate)
@@ -79,7 +79,7 @@ snp_df =
 ```
 
 
-## clean data in unemployment.csv
+# c. clean data in unemployment.csv
 
 ```{r}
 unemployment_df = 
@@ -96,7 +96,7 @@ unemployment_df =
   )
 
 ```
-## Joining dataset
+# d. Joining dataset
 
 ```{r}
 pol_snp_df = 
@@ -116,7 +116,7 @@ and unemployment rate. The range of the year is from 1947 to 2015.
 
 # Problem 2 
 
-#import and clean Mr. Trash Wheel
+# a. import and clean Mr. Trash Wheel
 
 ```{r}
 library( readxl)
@@ -130,11 +130,11 @@ Mr.Trash_wheel_df =
     year = as.numeric(year)
   )
 
-sum(Mr.Trash_wheel_df$weight_tons)
+
 
 ```
 
-# import and clean Professor Trash Wheel
+# b. import and clean Professor Trash Wheel
 
 ```{r}
 Professor_Trash_df = 
@@ -149,7 +149,7 @@ Professor_Trash_df =
 ```
 
 
-# Import and clean Gwynnda Trash Wheel
+# c. Import and clean Gwynnda Trash Wheel
 
 ```{r}
 Gwynnda_Trash_df = 
@@ -163,34 +163,27 @@ Gwynnda_Trash_df =
 
 Number_cigarette =
   filter(Gwynnda_Trash_df, year==2021, month == 'July') 
-sum(Number_cigarette$cigarette_butts)
+
 
 ```
 
-# Combine dataset to produce a single tidydataset
+# d. Combine dataset to produce a single tidydataset
 
 ```{r}
-# join Mr.Trash_wheel_df and Professor_Trash_df
-T_TrashWheel_df = 
-  full_join(Mr.Trash_wheel_df, Professor_Trash_df)
-
-#join Gwynnda_Trash_df into result above to gain final data
 Final_TrashWheel_df =
-  full_join(T_TrashWheel_df, Gwynnda_Trash_df) |>
-  select(Wheel_Type, everything()) |>
-  select(-month, -year)
-
+  bind_rows(Mr.Trash_wheel_df, Professor_Trash_df, Gwynnda_Trash_df) |>
+  select(Wheel_Type, everything()) 
   
 
 
   
 ```
-Description:
+
+# e. Description:
 
 There are 845 observation in the resulting dataset. Some key variables includes Wheel_Type, which shows which type the trash wheel is; Homes Powered, which is 
 calculate from Weight and average household energy usage; data, which shows data information. By the available data, the total weight of trash collected by 
-Professor Trash Wheel is 1875.1. The total number of cigarette butts collected 
-by Gwynnda in July of 2021 is 16300.
+Professor Trash Wheel is `r sum(Mr.Trash_wheel_df$weight_tons)`. The total number of cigarette butts collected by Gwynnda in July of 2021 is `r sum(Number_cigarette$cigarette_butts)`.
 
 
 

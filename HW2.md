@@ -20,7 +20,7 @@ library(tidyverse)
     ## ✖ dplyr::lag()    masks stats::lag()
     ## ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
 
-## clean the data in pols-month.csv
+# a. clean the data in pols-month.csv
 
 ``` r
 polsmonth_df = 
@@ -61,7 +61,7 @@ polsmonth_df =
     ## ℹ Use `spec()` to retrieve the full column specification for this data.
     ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 
-## clean data in snp.csv
+# b. clean data in snp.csv
 
 ``` r
 library(lubridate)
@@ -99,7 +99,7 @@ snp_df =
     ## ℹ Use `spec()` to retrieve the full column specification for this data.
     ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 
-## clean data in unemployment.csv
+# c. clean data in unemployment.csv
 
 ``` r
 unemployment_df = 
@@ -124,7 +124,7 @@ unemployment_df =
     ## ℹ Use `spec()` to retrieve the full column specification for this data.
     ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 
-## Joining dataset
+# d. Joining dataset
 
 ``` r
 pol_snp_df = 
@@ -147,7 +147,7 @@ year, month and unemployment rate. The range of the year is from 1947 to
 
 # Problem 2
 
-\#import and clean Mr. Trash Wheel
+# a. import and clean Mr. Trash Wheel
 
 ``` r
 library( readxl)
@@ -166,13 +166,7 @@ Mr.Trash_wheel_df =
     ## • `` -> `...15`
     ## • `` -> `...16`
 
-``` r
-sum(Mr.Trash_wheel_df$weight_tons)
-```
-
-    ## [1] 1875.1
-
-# import and clean Professor Trash Wheel
+# b. import and clean Professor Trash Wheel
 
 ``` r
 Professor_Trash_df = 
@@ -185,7 +179,7 @@ Professor_Trash_df =
   )
 ```
 
-# Import and clean Gwynnda Trash Wheel
+# c. Import and clean Gwynnda Trash Wheel
 
 ``` r
 Gwynnda_Trash_df = 
@@ -199,36 +193,17 @@ Gwynnda_Trash_df =
 
 Number_cigarette =
   filter(Gwynnda_Trash_df, year==2021, month == 'July') 
-sum(Number_cigarette$cigarette_butts)
 ```
 
-    ## [1] 16300
-
-# Combine dataset to produce a single tidydataset
+# d. Combine dataset to produce a single tidydataset
 
 ``` r
-# join Mr.Trash_wheel_df and Professor_Trash_df
-T_TrashWheel_df = 
-  full_join(Mr.Trash_wheel_df, Professor_Trash_df)
-```
-
-    ## Joining with `by = join_by(dumpster, month, year, date, weight_tons,
-    ## volume_cubic_yards, plastic_bottles, polystyrene, cigarette_butts,
-    ## glass_bottles, plastic_bags, wrappers, homes_powered, Wheel_Type)`
-
-``` r
-#join Gwynnda_Trash_df into result above to gain final data
 Final_TrashWheel_df =
-  full_join(T_TrashWheel_df, Gwynnda_Trash_df) |>
-  select(Wheel_Type, everything()) |>
-  select(-month, -year)
+  bind_rows(Mr.Trash_wheel_df, Professor_Trash_df, Gwynnda_Trash_df) |>
+  select(Wheel_Type, everything()) 
 ```
 
-    ## Joining with `by = join_by(dumpster, month, year, date, weight_tons,
-    ## volume_cubic_yards, plastic_bottles, polystyrene, cigarette_butts,
-    ## plastic_bags, wrappers, homes_powered, Wheel_Type)`
-
-Description:
+# e. Description:
 
 There are 845 observation in the resulting dataset. Some key variables
 includes Wheel_Type, which shows which type the trash wheel is; Homes
@@ -236,4 +211,4 @@ Powered, which is calculate from Weight and average household energy
 usage; data, which shows data information. By the available data, the
 total weight of trash collected by Professor Trash Wheel is 1875.1. The
 total number of cigarette butts collected by Gwynnda in July of 2021 is
-16300.
+1.63^{4}.
