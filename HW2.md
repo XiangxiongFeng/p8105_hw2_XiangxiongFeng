@@ -43,7 +43,8 @@ polsmonth =
     president = replace(president, president == '0', 'gop'),
     president = replace(president, president == '1', '0'),
     president = replace(president, president == 'gop', '1')
-    ) 
+    ) |>
+  select(-prez_gop,-day)
 ```
 
     ## Rows: 822 Columns: 9
