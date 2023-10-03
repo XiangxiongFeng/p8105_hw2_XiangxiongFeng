@@ -138,3 +138,7 @@ final_df =
 ```
 
     ## Joining with `by = join_by(year, month)`
+
+The final dataset includes 11 variables, some important variables are
+year, month and unemployment rate. The range of the year is from 1947 to
+2015.

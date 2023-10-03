@@ -104,6 +104,7 @@ final_df =
   left_join(pol_snp_df, unemployment_df)
 ```
 
-
+The final dataset includes 11 variables, some important variables are year, month
+and unemployment rate. The range of the year is from 1947 to 2015.
 
 
