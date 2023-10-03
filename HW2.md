@@ -157,7 +157,8 @@ Mr.Trash_wheel_df =
   drop_na(dumpster) |>
   mutate(
     homes_powered = (weight_tons*500)/30,
-    Wheel_Type = 'Mr.Trash Wheel'
+    Wheel_Type = 'Mr.Trash Wheel',
+    year = as.numeric(year)
   )
 ```
 
@@ -190,3 +191,25 @@ Gwynnda_Trash_df =
     Wheel_Type = 'Gwynnda Trash Wheel'
   )
 ```
+
+# Combine dataset to produce a single tidydataset
+
+``` r
+# join Mr.Trash_wheel_df and Professor_Trash_df
+T_TrashWheel_df = 
+  full_join(Mr.Trash_wheel_df, Professor_Trash_df)
+```
+
+    ## Joining with `by = join_by(dumpster, month, year, date, weight_tons,
+    ## volume_cubic_yards, plastic_bottles, polystyrene, cigarette_butts,
+    ## glass_bottles, plastic_bags, wrappers, homes_powered, Wheel_Type)`
+
+``` r
+#join Gwynnda_Trash_df into result above to gain final data
+Final_TrashWheel_df =
+  full_join(T_TrashWheel_df, Gwynnda_Trash_df)
+```
+
+    ## Joining with `by = join_by(dumpster, month, year, date, weight_tons,
+    ## volume_cubic_yards, plastic_bottles, polystyrene, cigarette_butts,
+    ## plastic_bags, wrappers, homes_powered, Wheel_Type)`

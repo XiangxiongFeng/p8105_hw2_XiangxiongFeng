@@ -126,7 +126,8 @@ Mr.Trash_wheel_df =
   drop_na(dumpster) |>
   mutate(
     homes_powered = (weight_tons*500)/30,
-    Wheel_Type = 'Mr.Trash Wheel'
+    Wheel_Type = 'Mr.Trash Wheel',
+    year = as.numeric(year)
   )
   
 
@@ -160,7 +161,22 @@ Gwynnda_Trash_df =
   )
 ```
 
+# Combine dataset to produce a single tidydataset
 
+```{r}
+# join Mr.Trash_wheel_df and Professor_Trash_df
+T_TrashWheel_df = 
+  full_join(Mr.Trash_wheel_df, Professor_Trash_df)
+
+#join Gwynnda_Trash_df into result above to gain final data
+Final_TrashWheel_df =
+  full_join(T_TrashWheel_df, Gwynnda_Trash_df)
+
+  
+
+
+  
+```
 
 
 
