@@ -3,6 +3,8 @@ HW2
 Xiangxiong Feng
 2023-10-02
 
+# Problem 1
+
 ``` r
 library(tidyverse)
 ```
@@ -18,7 +20,7 @@ library(tidyverse)
     ## ✖ dplyr::lag()    masks stats::lag()
     ## ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
 
-# clean the data in pols-month.csv
+## clean the data in pols-month.csv
 
 ``` r
 polsmonth_df = 
@@ -59,7 +61,7 @@ polsmonth_df =
     ## ℹ Use `spec()` to retrieve the full column specification for this data.
     ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 
-# clean data in snp.csv
+## clean data in snp.csv
 
 ``` r
 library(lubridate)
@@ -97,7 +99,7 @@ snp_df =
     ## ℹ Use `spec()` to retrieve the full column specification for this data.
     ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 
-# clean data in unemployment.csv
+## clean data in unemployment.csv
 
 ``` r
 unemployment_df = 
@@ -122,7 +124,7 @@ unemployment_df =
     ## ℹ Use `spec()` to retrieve the full column specification for this data.
     ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 
-# Joining dataset
+## Joining dataset
 
 ``` r
 pol_snp_df = 

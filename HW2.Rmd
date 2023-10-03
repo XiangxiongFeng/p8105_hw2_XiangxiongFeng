@@ -5,10 +5,13 @@ date: "2023-10-02"
 output: github_document
 ---
 
+
+# Problem 1
+
 ```{r}
 library(tidyverse)
 ```
-# clean the data in pols-month.csv
+## clean the data in pols-month.csv
 
 ```{r}
 polsmonth_df = 
@@ -42,7 +45,7 @@ polsmonth_df =
   
 ```
 
-# clean data in snp.csv
+## clean data in snp.csv
 
 ```{r}
 library(lubridate)
@@ -76,7 +79,7 @@ snp_df =
 ```
 
 
-# clean data in unemployment.csv
+## clean data in unemployment.csv
 
 ```{r}
 unemployment_df = 
@@ -93,7 +96,7 @@ unemployment_df =
   )
 
 ```
-# Joining dataset
+## Joining dataset
 
 ```{r}
 pol_snp_df = 
@@ -106,5 +109,11 @@ final_df =
 
 The final dataset includes 11 variables, some important variables are year, month
 and unemployment rate. The range of the year is from 1947 to 2015.
+
+
+
+
+
+
 
 
