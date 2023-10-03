@@ -8,8 +8,10 @@ output: github_document
 ```{r}
 library(tidyverse)
 ```
+# clean the data in pols-month.csv
+
 ```{r}
-polsmonth = 
+polsmonth_df = 
   read_csv('data/pols-month.csv') |>
   janitor:: clean_names() |>
   separate(mon, into = c('year', 'month'), sep = 4) |>
@@ -38,4 +40,48 @@ polsmonth =
   
   
 ```
+
+# clean data in snp.csv
+
+```{r}
+library(lubridate)
+library(dplyr)
+snp_df = 
+  read_csv('data/snp.csv') |>
+  janitor::clean_names() |>
+  mutate(
+    date = parse_date_time(date, order = c('mdy'))) |>
+  separate(date, into = c('year', 'month'), sep = 4) |>
+  separate(month, into = c('month', 'day'), sep = 3) |>
+  mutate(
+    month = replace(month, month == '-01', 'Jan'),
+    month = replace(month, month == '-02', 'Feb'),
+    month = replace(month, month == '-03', 'Mar'),
+    month = replace(month, month == '-04', 'Apr'),
+    month = replace(month, month == '-05', 'May'),
+    month = replace(month, month == '-06', 'Jun'),
+    month = replace(month, month == '-07', 'Jul'),
+    month = replace(month, month == '-08', 'Aug'),
+    month = replace(month, month == '-09', 'Sep'),
+    month = replace(month, month == '-10', 'Oct'),
+    month = replace(month, month == '-11', 'Noc'),
+    month = replace(month, month == '-12', 'Dec')) |>
+  select(-day)
+  
+
+
+
+```
+
+
+
+
+```{r}
+
+
+  
+```
+
+
+
 
