@@ -149,4 +149,12 @@ year, month and unemployment rate. The range of the year is from 1947 to
 
 ``` r
 library( readxl)
+Trash_wheel_df = 
+  read_excel('data/202309 Trash Wheel Collection Data.xlsx') |>
+  janitor::clean_names() |>
+  drop_na(dumpster)
 ```
+
+    ## New names:
+    ## • `` -> `...15`
+    ## • `` -> `...16`
