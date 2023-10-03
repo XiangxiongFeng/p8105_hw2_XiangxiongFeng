@@ -21,7 +21,23 @@ library(tidyverse)
 ``` r
 polsmonth = 
   read_csv('data/pols-month.csv') |>
-  janitor:: clean_names()
+  janitor:: clean_names() |>
+  separate(mon, into = c('year', 'month'), sep = 4) |>
+  separate(month, into = c('month', 'day'), sep = 3) |>
+  mutate(
+    month = replace(month, month == '-01', 'Jan'),
+    month = replace(month, month == '-02', 'Feb'),
+    month = replace(month, month == '-03', 'Mar'),
+    month = replace(month, month == '-04', 'Apr'),
+    month = replace(month, month == '-05', 'May'),
+    month = replace(month, month == '-06', 'Jun'),
+    month = replace(month, month == '-07', 'Jul'),
+    month = replace(month, month == '-08', 'Aug'),
+    month = replace(month, month == '-09', 'Sep'),
+    month = replace(month, month == '-10', 'Oct'),
+    month = replace(month, month == '-11', 'Noc'),
+    month = replace(month, month == '-12', 'Dec')
+  )
 ```
 
     ## Rows: 822 Columns: 9
