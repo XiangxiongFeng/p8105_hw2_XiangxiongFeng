@@ -166,6 +166,12 @@ Mr.Trash_wheel_df =
     ## • `` -> `...15`
     ## • `` -> `...16`
 
+``` r
+sum(Mr.Trash_wheel_df$weight_tons)
+```
+
+    ## [1] 1875.1
+
 # import and clean Professor Trash Wheel
 
 ``` r
@@ -179,7 +185,7 @@ Professor_Trash_df =
   )
 ```
 
-# Import and clean
+# Import and clean Gwynnda Trash Wheel
 
 ``` r
 Gwynnda_Trash_df = 
@@ -190,7 +196,13 @@ Gwynnda_Trash_df =
     homes_powered = (weight_tons*500)/30,
     Wheel_Type = 'Gwynnda Trash Wheel'
   )
+
+Number_cigarette =
+  filter(Gwynnda_Trash_df, year==2021, month == 'July') 
+sum(Number_cigarette$cigarette_butts)
 ```
+
+    ## [1] 16300
 
 # Combine dataset to produce a single tidydataset
 
@@ -207,9 +219,21 @@ T_TrashWheel_df =
 ``` r
 #join Gwynnda_Trash_df into result above to gain final data
 Final_TrashWheel_df =
-  full_join(T_TrashWheel_df, Gwynnda_Trash_df)
+  full_join(T_TrashWheel_df, Gwynnda_Trash_df) |>
+  select(Wheel_Type, everything()) |>
+  select(-month, -year)
 ```
 
     ## Joining with `by = join_by(dumpster, month, year, date, weight_tons,
     ## volume_cubic_yards, plastic_bottles, polystyrene, cigarette_butts,
     ## plastic_bags, wrappers, homes_powered, Wheel_Type)`
+
+Description:
+
+There are 845 observation in the resulting dataset. Some key variables
+includes Wheel_Type, which shows which type the trash wheel is; Homes
+Powered, which is calculate from Weight and average household energy
+usage; data, which shows data information. By the available data, the
+total weight of trash collected by Professor Trash Wheel is 1875.1. The
+total number of cigarette butts collected by Gwynnda in July of 2021 is
+16300.
