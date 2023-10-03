@@ -144,3 +144,17 @@ final_df =
 The final dataset includes 11 variables, some important variables are
 year, month and unemployment rate. The range of the year is from 1947 to
 2015.
+
+# Problem 2
+
+``` r
+library( readxl)
+Trash_Wheel_df =
+  read_excel('data/202207 Trash Wheel Collection Data.xlsx') |>
+  janitor::clean_names() |>
+  drop_na(dumpster)
+```
+
+    ## New names:
+    ## • `` -> `...15`
+    ## • `` -> `...16`
