@@ -147,12 +147,17 @@ year, month and unemployment rate. The range of the year is from 1947 to
 
 # Problem 2
 
+\#import and clean Mr. Trash Wheel
+
 ``` r
 library( readxl)
 Trash_wheel_df = 
-  read_excel('data/202309 Trash Wheel Collection Data.xlsx') |>
+  read_excel('data/202309 Trash Wheel Collection Data.xlsx', sheet = 'Mr. Trash Wheel') |>
   janitor::clean_names() |>
-  drop_na(dumpster)
+  drop_na(dumpster) |>
+  mutate(
+    homes_powered = (weight_tons*500)/30
+  )
 ```
 
     ## New names:
