@@ -131,6 +131,19 @@ Trash_wheel_df =
 
 ```
 
+# import and clean Professor Trash Wheel
+
+```{r}
+Professor_Trash_df = 
+  read_excel('data/202309 Trash Wheel Collection Data.xlsx', sheet = 'Professor Trash Wheel') |>
+  janitor::clean_names() |>
+  drop_na(dumpster) |>
+  mutate(
+    homes_powered = (weight_tons*500)/30
+  )
+
+```
+
 
 
 
