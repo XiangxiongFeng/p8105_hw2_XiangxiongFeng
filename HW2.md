@@ -37,7 +37,13 @@ polsmonth =
     month = replace(month, month == '-10', 'Oct'),
     month = replace(month, month == '-11', 'Noc'),
     month = replace(month, month == '-12', 'Dec')
-  )
+  ) |>
+  rename(president = prez_dem) |>
+  mutate(
+    president = replace(president, president == '0', 'gop'),
+    president = replace(president, president == '1', '0'),
+    president = replace(president, president == 'gop', '1')
+    ) 
 ```
 
     ## Rows: 822 Columns: 9
