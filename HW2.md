@@ -38,7 +38,8 @@ polsmonth_df =
     month = replace(month, month == '-09', 'Sep'),
     month = replace(month, month == '-10', 'Oct'),
     month = replace(month, month == '-11', 'Noc'),
-    month = replace(month, month == '-12', 'Dec')
+    month = replace(month, month == '-12', 'Dec'),
+    month = str_to_upper(month)
   ) |>
   rename(president = prez_dem) |>
   mutate(
@@ -82,7 +83,8 @@ snp_df =
     month = replace(month, month == '-09', 'Sep'),
     month = replace(month, month == '-10', 'Oct'),
     month = replace(month, month == '-11', 'Noc'),
-    month = replace(month, month == '-12', 'Dec')) |>
+    month = replace(month, month == '-12', 'Dec'),
+    month = str_to_upper(month)) |>
   select(-day)
 ```
 
@@ -95,6 +97,8 @@ snp_df =
     ## ℹ Use `spec()` to retrieve the full column specification for this data.
     ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 
+# clean data in unemployment.csv
+
 ``` r
 unemployment_df = 
   read_csv('data/unemployment.csv') |>
@@ -103,7 +107,10 @@ unemployment_df =
     jan:dec,
     names_to = 'month',
     values_to = 'unemployment_rate'
-    
+  ) |>
+  mutate(
+    month = str_to_upper(month),
+  
   )
 ```
 
@@ -114,3 +121,20 @@ unemployment_df =
     ## 
     ## ℹ Use `spec()` to retrieve the full column specification for this data.
     ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+
+# Joining dataset
+
+``` r
+pol_snp_df = 
+  left_join(polsmonth_df,snp_df ) |>
+  mutate(year = as.numeric(year))
+```
+
+    ## Joining with `by = join_by(year, month)`
+
+``` r
+final_df =
+  left_join(pol_snp_df, unemployment_df)
+```
+
+    ## Joining with `by = join_by(year, month)`
