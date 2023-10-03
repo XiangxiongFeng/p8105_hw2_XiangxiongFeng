@@ -77,7 +77,15 @@ snp_df =
 
 
 ```{r}
-
+unemployment_df = 
+  read_csv('data/unemployment.csv') |>
+  janitor::clean_names() |>
+  pivot_longer(
+    jan:dec,
+    names_to = 'month',
+    values_to = 'unemployment_rate'
+    
+  )
 
   
 ```
