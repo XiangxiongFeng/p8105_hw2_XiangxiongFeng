@@ -251,7 +251,19 @@ baseline_df =
     ## Caused by warning:
     ## ! 强制改变过程中产生了NA
 
+``` r
+sex_apoe = 
+  select(baseline_df, sex,apoe4) |>
+  filter(sex == 'female') 
+
+
+(length(which(sex_apoe$apoe4 == 'carrier')))/46
+```
+
+    ## [1] 0.6521739
+
 There are 483 obs and 6 variables in this data set. During the import
 process, the value of variables: sex and apoe4 are converted to
 non-numberic value. There are 97 obs develop MCI. The average current
-age is 65.6113402, average age at onset is 70.2628866.
+age is 65.6113402, average age at onset is 70.2628866. 0.6521739 of
+women in the study are APOE4 carriers.

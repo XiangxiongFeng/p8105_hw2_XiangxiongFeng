@@ -214,8 +214,19 @@ baseline_df =
 
 ```
 
+```{r}
+sex_apoe = 
+  select(baseline_df, sex,apoe4) |>
+  filter(sex == 'female') 
+
+
+(length(which(sex_apoe$apoe4 == 'carrier')))/46
+  
+
+```
+
 There are 483 obs and 6 variables in this data set. During the import process, the value of variables: sex and apoe4 are converted to non-numberic value. There are 97 obs develop
-MCI. The average current age is `r mean(baseline_df$current_age)`, average age at onset is `r mean(baseline_df$age_at_onset)`. 
+MCI. The average current age is `r mean(baseline_df$current_age)`, average age at onset is `r mean(baseline_df$age_at_onset)`. `r (length(which(sex_apoe$apoe4 == 'carrier')))/46` of women in the study are APOE4 carriers.
 
 
 
