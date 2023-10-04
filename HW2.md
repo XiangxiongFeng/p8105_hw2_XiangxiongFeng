@@ -253,17 +253,49 @@ baseline_df =
 
 ``` r
 sex_apoe = 
-  select(baseline_df, sex,apoe4) |>
+  read_csv('data/MCI_baseline.csv', skip = 1) |>
+  janitor::clean_names() |>
+  mutate(
+    sex = 
+      case_match(
+        sex,
+        1 ~ 'male',
+        0 ~ 'female'),
+    sex = as.factor(sex),
+    apoe4 =
+      case_match(
+        apoe4,
+        1 ~ 'carrier',
+        0 ~ 'noncarrier' ),
+  age_at_onset = as.numeric(age_at_onset)) |>
+  select(sex,apoe4) |>
   filter(sex == 'female') 
-
-
-(length(which(sex_apoe$apoe4 == 'carrier')))/46
 ```
 
-    ## [1] 0.6521739
+    ## Rows: 483 Columns: 6
+    ## ── Column specification ────────────────────────────────────────────────────────
+    ## Delimiter: ","
+    ## chr (1): Age at onset
+    ## dbl (5): ID, Current Age, Sex, Education, apoe4
+    ## 
+    ## ℹ Use `spec()` to retrieve the full column specification for this data.
+    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+
+    ## Warning: There was 1 warning in `mutate()`.
+    ## ℹ In argument: `age_at_onset = as.numeric(age_at_onset)`.
+    ## Caused by warning:
+    ## ! 强制改变过程中产生了NA
 
 There are 483 obs and 6 variables in this data set. During the import
 process, the value of variables: sex and apoe4 are converted to
 non-numberic value. There are 97 obs develop MCI. The average current
-age is 65.6113402, average age at onset is 70.2628866. 0.6521739 of
+age is 65.6113402, average age at onset is 70.2628866. 0.2985782 of
 women in the study are APOE4 carriers.
+
+# b. import and clean the dataset of longitudinally observed biomarker values
+
+``` r
+amyloid_df =
+  read.csv('data/mci_amyloid.csv', skip = 1) |>
+  janitor::clean_names() 
+```
