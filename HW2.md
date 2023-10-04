@@ -212,3 +212,34 @@ usage; data, which shows data information. By the available data, the
 total weight of trash collected by Professor Trash Wheel is 1875.1. The
 total number of cigarette butts collected by Gwynnda in July of 2021 is
 1.63^{4}.
+
+# Problem 3
+
+# a.
+
+``` r
+baseline_df =
+  read_csv('data/MCI_baseline.csv', skip = 1) |>
+  janitor::clean_names() |>
+  mutate(
+    sex = 
+      case_match(
+        sex,
+        1 ~ 'male',
+        0 ~ 'female'),
+    sex = as.factor(sex),
+    apoe4 =
+      case_match(
+        apoe4,
+        1 ~ 'carrier',
+        0 ~ 'noncarrier' ))
+```
+
+    ## Rows: 483 Columns: 6
+    ## ── Column specification ────────────────────────────────────────────────────────
+    ## Delimiter: ","
+    ## chr (1): Age at onset
+    ## dbl (5): ID, Current Age, Sex, Education, apoe4
+    ## 
+    ## ℹ Use `spec()` to retrieve the full column specification for this data.
+    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.

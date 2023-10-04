@@ -187,5 +187,37 @@ Professor Trash Wheel is `r sum(Mr.Trash_wheel_df$weight_tons)`. The total numbe
 
 
 
+# Problem 3
+
+
+# a.
+
+```{r}
+baseline_df =
+  read_csv('data/MCI_baseline.csv', skip = 1) |>
+  janitor::clean_names() |>
+  mutate(
+    sex = 
+      case_match(
+        sex,
+        1 ~ 'male',
+        0 ~ 'female'),
+    sex = as.factor(sex),
+    apoe4 =
+      case_match(
+        apoe4,
+        1 ~ 'carrier',
+        0 ~ 'noncarrier' ))
+  
+  
+
+  
+
+  
+  
+```
+
+
+
 
 
