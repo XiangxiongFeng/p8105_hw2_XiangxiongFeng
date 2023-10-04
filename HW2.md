@@ -20,6 +20,11 @@ library(tidyverse)
     ## ✖ dplyr::lag()    masks stats::lag()
     ## ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
 
+``` r
+library(lubridate)
+library(dplyr)
+```
+
 # a. clean the data in pols-month.csv
 
 ``` r
@@ -64,8 +69,6 @@ polsmonth_df =
 # b. clean data in snp.csv
 
 ``` r
-library(lubridate)
-library(dplyr)
 snp_df = 
   read_csv('data/snp.csv') |>
   janitor::clean_names() |>
@@ -205,13 +208,13 @@ Final_TrashWheel_df =
 
 # e. Description:
 
-There are 845 observation in the resulting dataset. Some key variables
-includes Wheel_Type, which shows which type the trash wheel is; Homes
-Powered, which is calculate from Weight and average household energy
-usage; data, which shows data information. By the available data, the
-total weight of trash collected by Professor Trash Wheel is 216.26. The
-total number of cigarette butts collected by Gwynnda in July of 2021 is
-1.63^{4}.
+There are 845 observation in the resulting dataset. The dataset has 17
+columes and 845 rows.Some key variables includes Wheel_Type, which shows
+which type the trash wheel is; Homes Powered, which is calculate from
+Weight and average household energy usage; data, which shows data
+information. By the available data, the total weight of trash collected
+by Professor Trash Wheel is 216.26. The total number of cigarette butts
+collected by Gwynnda in July of 2021 is 1.63^{4}.
 
 # Problem 3
 
@@ -300,8 +303,27 @@ women in the study are APOE4 carriers.
 amyloid_df =
   read.csv('data/mci_amyloid.csv', skip = 1) |>
   janitor::clean_names() |>
+  #tidy the dataset 
   pivot_longer(
     baseline:time_8,
     names_to = 'time_period',
-    values_to = 'observed_biomarker_value') 
+    values_to = 'observed_biomarker_value') |>
+  rename(id = study_id)
 ```
+
+The resulting data has 2435 obs and 3 variables, which are study_id,
+time_period and observed_biomarker_value. The data shows the biomarker
+values for each participants in different time periods.
+
+# c. 
+
+``` r
+baseline_amyloid_df = 
+  inner_join(baseline_df, amyloid_df, by ='id')
+write.csv(baseline_amyloid_df, file = 'data/resluting_data_Problem 3.csv')
+```
+
+There are total 94 participants who appear in both datasets are
+retained. The resulting dataset has 470 obs and 8 variables. The dataset
+shows current age, age at onset and biomarker value for each participant
+in 5 different time periods.
