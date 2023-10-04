@@ -323,7 +323,7 @@ The resulting data has 2435 obs and 3 variables, which are study_id,
 time_period and observed_biomarker_value. The data shows the biomarker
 values for each participants in different time periods.
 
-# c. 
+# c. description and calculation
 
 ``` r
 unqiue_baseline = setdiff(baseline_df$id, amyloid_df$id)
@@ -345,7 +345,7 @@ baseline_amyloid_df =
 write.csv(baseline_amyloid_df, file = 'data/resluting_data_Problem 3.csv')
 ```
 
-Therer are 8 participants only appear in baseline and 12 only appear in
+There are 8 participants only appear in baseline and 12 only appear in
 amyloid dataset. There are total 470 participants who appear in both
 datasets are retained. The resulting dataset has 470 obs and 8
 variables. The dataset shows current age, age at onset and biomarker
