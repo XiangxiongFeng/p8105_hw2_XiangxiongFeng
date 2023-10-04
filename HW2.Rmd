@@ -183,14 +183,14 @@ Final_TrashWheel_df =
 
 There are 845 observation in the resulting dataset. Some key variables includes Wheel_Type, which shows which type the trash wheel is; Homes Powered, which is 
 calculate from Weight and average household energy usage; data, which shows data information. By the available data, the total weight of trash collected by 
-Professor Trash Wheel is `r sum(Mr.Trash_wheel_df$weight_tons)`. The total number of cigarette butts collected by Gwynnda in July of 2021 is `r sum(Number_cigarette$cigarette_butts)`.
+Professor Trash Wheel is `r sum(Professor_Trash_df$weight_tons)`. The total number of cigarette butts collected by Gwynnda in July of 2021 is `r sum(Number_cigarette$cigarette_butts)`.
 
 
 
 # Problem 3
 
 
-# a.
+# a. import and clean the dataset of baseline
 
 ```{r}
 baseline_df =
@@ -207,16 +207,15 @@ baseline_df =
       case_match(
         apoe4,
         1 ~ 'carrier',
-        0 ~ 'noncarrier' ))
-  
-  
+        0 ~ 'noncarrier' ),
+    age_at_onset = as.numeric(age_at_onset)) |>
+  filter(age_at_onset != '.')
 
-  
 
-  
-  
 ```
 
+There are 483 obs and 6 variables in this data set. During the import process, the value of variables: sex and apoe4 are converted to non-numberic value. There are 97 obs develop
+MCI. The average current age is `r mean(baseline_df$current_age)`, average age at onset is `r mean(baseline_df$age_at_onset)`. 
 
 
 

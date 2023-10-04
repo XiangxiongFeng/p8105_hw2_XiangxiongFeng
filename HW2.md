@@ -209,13 +209,13 @@ There are 845 observation in the resulting dataset. Some key variables
 includes Wheel_Type, which shows which type the trash wheel is; Homes
 Powered, which is calculate from Weight and average household energy
 usage; data, which shows data information. By the available data, the
-total weight of trash collected by Professor Trash Wheel is 1875.1. The
+total weight of trash collected by Professor Trash Wheel is 216.26. The
 total number of cigarette butts collected by Gwynnda in July of 2021 is
 1.63^{4}.
 
 # Problem 3
 
-# a.
+# a. import and clean the dataset of baseline
 
 ``` r
 baseline_df =
@@ -232,7 +232,9 @@ baseline_df =
       case_match(
         apoe4,
         1 ~ 'carrier',
-        0 ~ 'noncarrier' ))
+        0 ~ 'noncarrier' ),
+    age_at_onset = as.numeric(age_at_onset)) |>
+  filter(age_at_onset != '.')
 ```
 
     ## Rows: 483 Columns: 6
@@ -243,3 +245,13 @@ baseline_df =
     ## 
     ## ℹ Use `spec()` to retrieve the full column specification for this data.
     ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+
+    ## Warning: There was 1 warning in `mutate()`.
+    ## ℹ In argument: `age_at_onset = as.numeric(age_at_onset)`.
+    ## Caused by warning:
+    ## ! 强制改变过程中产生了NA
+
+There are 483 obs and 6 variables in this data set. During the import
+process, the value of variables: sex and apoe4 are converted to
+non-numberic value. There are 97 obs develop MCI. The average current
+age is 65.6113402, average age at onset is 70.2628866.
