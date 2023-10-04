@@ -236,8 +236,7 @@ baseline_df =
         apoe4,
         1 ~ 'carrier',
         0 ~ 'noncarrier' ),
-    age_at_onset = as.numeric(age_at_onset)) |>
-  filter(age_at_onset != '.')
+    age_at_onset = as.numeric(age_at_onset))
 ```
 
     ## Rows: 483 Columns: 6
@@ -254,9 +253,15 @@ baseline_df =
     ## Caused by warning:
     ## ! 强制改变过程中产生了NA
 
+``` r
+baseline_filtered_df = 
+  filter(baseline_df, age_at_onset != '.')
+```
+
 # proportion of women in the study are APOE4 carriers
 
 ``` r
+#women in the study are APOE4 carriers
 sex_apoe = 
   read_csv('data/MCI_baseline.csv', skip = 1) |>
   janitor::clean_names() |>
@@ -294,8 +299,7 @@ sex_apoe =
 There are 483 obs and 6 variables in the resulting data set. During the
 import process, the value of variables: sex and apoe4 are converted to
 non-numerical value. There are 97 obs develop MCI. The average current
-age is 65.6113402, average age at onset is 70.2628866. 0.2985782 of
-women in the study are APOE4 carriers.
+age is 65.0467909. 0.2985782 of women in the study are APOE4 carriers.
 
 # b. import and clean the dataset of longitudinally observed biomarker values
 
@@ -303,12 +307,16 @@ women in the study are APOE4 carriers.
 amyloid_df =
   read.csv('data/mci_amyloid.csv', skip = 1) |>
   janitor::clean_names() |>
-  #tidy the dataset 
-  pivot_longer(
+  rename(id = study_id)
+
+
+
+ #tidy the dataset 
+amyloid_tydi_df = 
+  pivot_longer(amyloid_df,
     baseline:time_8,
     names_to = 'time_period',
-    values_to = 'observed_biomarker_value') |>
-  rename(id = study_id)
+    values_to = 'observed_biomarker_value') 
 ```
 
 The resulting data has 2435 obs and 3 variables, which are study_id,
@@ -318,12 +326,27 @@ values for each participants in different time periods.
 # c. 
 
 ``` r
+unqiue_baseline = setdiff(baseline_df$id, amyloid_df$id)
+length(unqiue_baseline)
+```
+
+    ## [1] 8
+
+``` r
+unqiue_amyloid = setdiff(amyloid_df$id, baseline_df$id)
+length(unqiue_amyloid)
+```
+
+    ## [1] 12
+
+``` r
 baseline_amyloid_df = 
-  inner_join(baseline_df, amyloid_df, by ='id')
+  inner_join(baseline_filtered_df, amyloid_tydi_df, by ='id')
 write.csv(baseline_amyloid_df, file = 'data/resluting_data_Problem 3.csv')
 ```
 
-There are total 94 participants who appear in both datasets are
-retained. The resulting dataset has 470 obs and 8 variables. The dataset
-shows current age, age at onset and biomarker value for each participant
-in 5 different time periods.
+Therer are 8 participants only appear in baseline and 12 only appear in
+amyloid dataset. There are total 470 participants who appear in both
+datasets are retained. The resulting dataset has 470 obs and 8
+variables. The dataset shows current age, age at onset and biomarker
+value for each participant in 5 different time periods.
