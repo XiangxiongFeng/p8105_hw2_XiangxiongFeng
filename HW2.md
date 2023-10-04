@@ -251,6 +251,8 @@ baseline_df =
     ## Caused by warning:
     ## ! 强制改变过程中产生了NA
 
+# proportion of women in the study are APOE4 carriers
+
 ``` r
 sex_apoe = 
   read_csv('data/MCI_baseline.csv', skip = 1) |>
@@ -286,9 +288,9 @@ sex_apoe =
     ## Caused by warning:
     ## ! 强制改变过程中产生了NA
 
-There are 483 obs and 6 variables in this data set. During the import
-process, the value of variables: sex and apoe4 are converted to
-non-numberic value. There are 97 obs develop MCI. The average current
+There are 483 obs and 6 variables in the resulting data set. During the
+import process, the value of variables: sex and apoe4 are converted to
+non-numerical value. There are 97 obs develop MCI. The average current
 age is 65.6113402, average age at onset is 70.2628866. 0.2985782 of
 women in the study are APOE4 carriers.
 
@@ -297,5 +299,9 @@ women in the study are APOE4 carriers.
 ``` r
 amyloid_df =
   read.csv('data/mci_amyloid.csv', skip = 1) |>
-  janitor::clean_names() 
+  janitor::clean_names() |>
+  pivot_longer(
+    baseline:time_8,
+    names_to = 'time_period',
+    values_to = 'observed_biomarker_value') 
 ```

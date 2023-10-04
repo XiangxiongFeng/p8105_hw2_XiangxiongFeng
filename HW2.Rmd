@@ -213,7 +213,7 @@ baseline_df =
 
 
 ```
-
+# proportion of women in the study are APOE4 carriers
 ```{r}
 
 sex_apoe = 
@@ -237,7 +237,7 @@ sex_apoe =
 
 ```
 
-There are 483 obs and 6 variables in this data set. During the import process, the value of variables: sex and apoe4 are converted to non-numberic value. There are 97 obs develop
+There are 483 obs and 6 variables in the resulting data set. During the import process, the value of variables: sex and apoe4 are converted to non-numerical value. There are 97 obs develop
 MCI. The average current age is `r mean(baseline_df$current_age)`, average age at onset is `r mean(baseline_df$age_at_onset)`. `r (length(which(sex_apoe$apoe4 == 'carrier')))/211` of women in the study are APOE4 carriers.
 
 
@@ -246,7 +246,12 @@ MCI. The average current age is `r mean(baseline_df$current_age)`, average age a
 ```{r}
 amyloid_df =
   read.csv('data/mci_amyloid.csv', skip = 1) |>
-  janitor::clean_names() 
+  janitor::clean_names() |>
+  pivot_longer(
+    baseline:time_8,
+    names_to = 'time_period',
+    values_to = 'observed_biomarker_value') 
+
   
 ```
 
